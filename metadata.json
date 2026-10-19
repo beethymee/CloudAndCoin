@@ -1,0 +1,6 @@
+{
+  "name": "FinTrack AI - Intelligent Personal Finance Assistant",
+  "description": "FinTechathon 2026 Topic A AI Financial Participant: smart budgeting, bill analysis, spending insights, and multi-tier security approvals.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#022c22"/>
+      <stop offset="50%" stop-color="#064e3b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <linearGradient id="shield" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#047857"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#34d399"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background rounded rect -->
+  <rect width="512" height="512" rx="128" fill="url(#bg)"/>
+
+  <!-- Shield Base -->
+  <path d="M256 70 C340 70 410 100 410 100 C410 260 350 370 256 442 C162 370 102 260 102 100 C102 100 172 70 256 70 Z" 
+        fill="url(#shield)" 
+        stroke="#34d399" 
+        stroke-width="12" 
+        stroke-linejoin="round"/>
+
+  <!-- Inner Financial Bar Chart & Upward Trend -->
+  <path d="M170 300 L210 240 L260 270 L340 180" 
+        fill="none" 
+        stroke="#ffffff" 
+        stroke-width="24" 
+        stroke-linecap="round" 
+        stroke-linejoin="round"/>
+
+  <!-- Arrow Head -->
+  <polygon points="340,160 355,200 315,190" fill="#ffffff"/>
+
+  <!-- Glowing Sparkle node -->
+  <circle cx="260" cy="270" r="10" fill="#a7f3d0"/>
+  <circle cx="210" cy="240" r="10" fill="#a7f3d0"/>
+  <circle cx="170" cy="300" r="10" fill="#a7f3d0"/>
+  <circle cx="340" cy="180" r="14" fill="#ffffff"/>
+
+  <!-- Security Padlock Center Base -->
+  <rect x="226" y="320" width="60" height="46" rx="8" fill="#ffffff"/>
+  <path d="M240 320 V300 A16 16 0 0 1 272 300 V320" fill="none" stroke="#ffffff" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="256" cy="342" r="5" fill="#047857"/>
+</svg>
