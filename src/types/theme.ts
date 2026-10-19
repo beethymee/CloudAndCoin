@@ -1,10 +1,10 @@
-export type ThemeId = 'bkash' | 'forest' | 'obsidian' | 'nordic' | 'sunset' | 'amber';
+export type ThemeId = 'ivory' | 'forest' | 'obsidian' | 'nordic' | 'sunset' | 'amber';
 
 export interface ThemeDefinition {
   id: ThemeId;
   name: string;
   tagline: string;
-  category: 'nature' | 'dark' | 'vibrant';
+  category: 'nature' | 'dark' | 'vibrant' | 'light';
   previewColors: {
     bg: string;
     surface: string;
@@ -14,31 +14,91 @@ export interface ThemeDefinition {
   sceneryFilter: string;
 }
 
+export interface VectorAvatarOption {
+  id: string;
+  name: string;
+  bg: string;
+  accent: string;
+  emoji: string;
+  description: string;
+}
+
+export const VECTOR_AVATARS: VectorAvatarOption[] = [
+  {
+    id: 'lotus',
+    name: 'Zen Lotus',
+    bg: 'bg-emerald-500/15 border-emerald-500/30 text-emerald-400',
+    accent: '#10B981',
+    emoji: '🪷',
+    description: 'Calm and steady mindful balance',
+  },
+  {
+    id: 'shield',
+    name: 'Cyber Sentinel',
+    bg: 'bg-cyan-500/15 border-cyan-500/30 text-cyan-400',
+    accent: '#06B6D4',
+    emoji: '🛡️',
+    description: 'Zero-trust protection and precision',
+  },
+  {
+    id: 'leaf',
+    name: 'Forest Sage',
+    bg: 'bg-teal-500/15 border-teal-500/30 text-teal-400',
+    accent: '#14B8A6',
+    emoji: '🌿',
+    description: 'Organic wealth growth and clarity',
+  },
+  {
+    id: 'star',
+    name: 'Golden Sparkle',
+    bg: 'bg-amber-500/15 border-amber-500/30 text-amber-400',
+    accent: '#F59E0B',
+    emoji: '✨',
+    description: 'Bright financial prosperity and goals',
+  },
+  {
+    id: 'compass',
+    name: 'Wealth Navigator',
+    bg: 'bg-sky-500/15 border-sky-500/30 text-sky-400',
+    accent: '#0284C7',
+    emoji: '🧭',
+    description: 'Strategic lifelong financial roadmap',
+  },
+  {
+    id: 'heart',
+    name: 'Peaceful Heart',
+    bg: 'bg-rose-500/15 border-rose-500/30 text-rose-400',
+    accent: '#F43F5E',
+    emoji: '🤍',
+    description: 'Stress-free abundance and wellbeing',
+  },
+];
+
 export interface UserPreferences {
   theme: ThemeId;
   userName: string;
   dateOfBirth?: string;
   job?: string;
+  avatarId?: string;
   workspacePassword?: string;
   greetingStyle: 'serene' | 'professional' | 'minimal';
   timeFormat: '12h' | '24h';
   showSceneryAnimation: boolean;
-  currencySymbol: '৳' | '$';
 }
 
 export const THEMES: ThemeDefinition[] = [
   {
-    id: 'bkash',
-    name: 'bKash Ruby',
-    tagline: 'Iconic bKash magenta & ultra-clean mobile banking aesthetic',
-    category: 'vibrant',
+    id: 'ivory',
+    name: 'Ivory Daylight',
+    tagline: 'Clean bright daylight, crisp alpine mist & pristine white surface',
+    category: 'light',
     previewColors: {
-      bg: '#D11467',
+      bg: '#F5F7F6',
       surface: '#FFFFFF',
-      accent: '#E2136E',
-      sceneryOverlay: 'rgba(209, 20, 103, 0.45)',
+      accent: '#059669',
+      sceneryOverlay: 'rgba(255, 255, 255, 0.45)',
     },
-    sceneryFilter: 'hue-rotate(290deg) saturate(1.4) brightness(0.95)',
+    sceneryFilter: 'brightness(1.1) contrast(1.02) saturate(1.1)',
   },
   {
     id: 'forest',

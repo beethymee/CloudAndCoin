@@ -21,7 +21,7 @@ import {
   Transaction,
   ActionProposal,
 } from '../types/finance';
-import { UserPreferences, THEMES } from '../types/theme';
+import { UserPreferences, THEMES, VECTOR_AVATARS } from '../types/theme';
 import { INSPIRING_QUOTES } from '../data/inspiringQuotes';
 import sceneryLakeWide from '../assets/images/scenery_vector_serene_lake_1792419207866.jpg';
 import sceneryForestMobile from '../assets/images/scenery_vector_mobile_forest_1792419207871.jpg';
@@ -189,8 +189,11 @@ export const WelcomingPage: React.FC<WelcomingPageProps> = ({
             <div className="text-[11px] sm:text-xs font-semibold tracking-widest text-slate-200 uppercase">
               {greeting}
             </div>
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight mt-0.5 font-serif">
-              {preferences.userName || 'Catherine'}
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight mt-0.5 font-serif flex items-center gap-2.5">
+              <span>{preferences.userName || 'Catherine'}</span>
+              <span className="text-2xl select-none" title={VECTOR_AVATARS.find((a) => a.id === preferences.avatarId)?.name || 'Avatar'}>
+                {VECTOR_AVATARS.find((a) => a.id === preferences.avatarId)?.emoji || '🪷'}
+              </span>
             </h1>
             <div className="text-[11px] text-slate-300 flex items-center gap-2 mt-0.5">
               <span>{preferences.job || 'Financial Analyst'}</span>

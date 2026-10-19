@@ -8,7 +8,7 @@ import {
   User,
 } from 'lucide-react';
 import { FinancialHealthScore } from '../types/finance';
-import { UserPreferences } from '../types/theme';
+import { UserPreferences, VECTOR_AVATARS } from '../types/theme';
 
 interface NavbarProps {
   activeTab: string;
@@ -110,12 +110,12 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* User Profile Avatar with Name */}
           <button
             onClick={onOpenThemeSettings}
-            className="flex items-center gap-2 pl-2 pr-1 py-1 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] text-xs transition cursor-pointer"
+            className="flex items-center gap-2 pl-2 pr-1.5 py-1 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] text-xs transition cursor-pointer"
             title="Open Profile Settings"
           >
             <span className="text-slate-300 font-medium hidden md:inline">{userName}</span>
-            <div className="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-300 font-bold flex items-center justify-center text-[11px] border border-emerald-500/30">
-              {userInitial}
+            <div className="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-300 font-bold flex items-center justify-center text-xs border border-emerald-500/30">
+              {VECTOR_AVATARS.find((a) => a.id === preferences?.avatarId)?.emoji || '🪷'}
             </div>
           </button>
         </div>

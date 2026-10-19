@@ -3,9 +3,6 @@ import {
   X,
   Check,
   Palette,
-  Sparkles,
-  Sun,
-  Moon,
   Clock,
   User,
   Compass,
@@ -15,8 +12,9 @@ import {
   LogOut,
   ShieldCheck,
   Lock,
+  Smile,
 } from 'lucide-react';
-import { THEMES, ThemeId, UserPreferences } from '../types/theme';
+import { THEMES, ThemeId, UserPreferences, VECTOR_AVATARS } from '../types/theme';
 
 interface ThemeSettingsModalProps {
   isOpen: boolean;
@@ -45,6 +43,9 @@ export const ThemeSettingsModal: React.FC<ThemeSettingsModalProps> = ({
     setTimeout(() => setPasswordSavedNotice(false), 2000);
   };
 
+  const currentAvatar =
+    VECTOR_AVATARS.find((a) => a.id === preferences.avatarId) || VECTOR_AVATARS[0];
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fadeIn">
       <div
@@ -59,7 +60,7 @@ export const ThemeSettingsModal: React.FC<ThemeSettingsModalProps> = ({
             </div>
             <div>
               <h3 className="text-lg font-bold text-white tracking-tight">User Profile &amp; Settings</h3>
-              <p className="text-xs text-slate-400">Manage your profile, security PIN, and theme appearance</p>
+              <p className="text-xs text-slate-400">Personalize your avatar, security PIN, and theme</p>
             </div>
           </div>
           <button
@@ -81,7 +82,7 @@ export const ThemeSettingsModal: React.FC<ThemeSettingsModalProps> = ({
             }`}
           >
             <User className="w-3.5 h-3.5" />
-            <span>Profile &amp; Info</span>
+            <span>Profile &amp; Avatar</span>
           </button>
           <button
             onClick={() => setActiveSubTab('security')}
@@ -103,15 +104,51 @@ export const ThemeSettingsModal: React.FC<ThemeSettingsModalProps> = ({
             }`}
           >
             <Palette className="w-3.5 h-3.5" />
-            <span>Themes &amp; Display</span>
+            <span>Atmospheric Themes</span>
           </button>
         </div>
 
         {/* Scrollable Body */}
         <div className="p-6 overflow-y-auto space-y-5">
-          {/* 1. Profile & Info SubTab */}
+          {/* 1. Profile & Avatar SubTab */}
           {activeSubTab === 'profile' && (
             <div className="space-y-4">
+              {/* Vector Profile Avatar Picker */}
+              <div className="space-y-2">
+                <label className="text-xs font-semibold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+                  <Smile className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>Choose Vector Profile Avatar</span>
+                </label>
+                <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
+                  {VECTOR_AVATARS.map((av) => {
+                    const isSelected = (preferences.avatarId || 'lotus') === av.id;
+                    return (
+                      <button
+                        key={av.id}
+                        type="button"
+                        onClick={() => onUpdatePreferences({ avatarId: av.id })}
+                        className={`p-2.5 rounded-2xl border flex flex-col items-center gap-1 transition cursor-pointer relative ${
+                          isSelected
+                            ? 'border-emerald-400 bg-emerald-500/20 ring-1 ring-emerald-400/40 shadow-sm'
+                            : 'border-white/10 bg-black/30 hover:bg-black/50 hover:border-white/20'
+                        }`}
+                        title={av.description}
+                      >
+                        <span className="text-2xl select-none">{av.emoji}</span>
+                        <span className="text-[10px] font-bold text-white truncate max-w-full">
+                          {av.name.split(' ')[1] || av.name}
+                        </span>
+                        {isSelected && (
+                          <div className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-emerald-400 text-slate-950 flex items-center justify-center text-[9px] font-bold">
+                            ✓
+                          </div>
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
               {/* Name */}
               <div className="space-y-1.5">
                 <label className="text-xs font-semibold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
@@ -157,10 +194,10 @@ export const ThemeSettingsModal: React.FC<ThemeSettingsModalProps> = ({
               </div>
 
               {/* Logout Action */}
-              <div className="pt-4 border-t border-white/10 flex items-center justify-between">
+              <div className="pt-3 border-t border-white/10 flex items-center justify-between">
                 <div>
                   <div className="text-xs font-bold text-white">Session Security</div>
-                  <div className="text-[11px] text-slate-400">Lock workspace and log out of this device</div>
+                  <div className="text-[11px] text-slate-400">Lock workspace and log out</div>
                 </div>
                 <button
                   type="button"
@@ -228,7 +265,7 @@ export const ThemeSettingsModal: React.FC<ThemeSettingsModalProps> = ({
           {/* 3. Theme & Display SubTab */}
           {activeSubTab === 'theme' && (
             <div className="space-y-5">
-              {/* Atmospheric Themes */}
+              {/* Atmospheric Themes (Ivory Daylight, Serene Forest, etc.) */}
               <div className="space-y-2.5">
                 <div className="flex items-center justify-between">
                   <label className="text-xs font-semibold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
@@ -272,7 +309,14 @@ export const ThemeSettingsModal: React.FC<ThemeSettingsModalProps> = ({
                           </div>
 
                           <div>
-                            <span className="text-xs font-bold text-white">{th.name}</span>
+                            <div className="flex items-center gap-2">
+                              <span className="text-xs font-bold text-white">{th.name}</span>
+                              {th.id === 'ivory' && (
+                                <span className="text-[9px] px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300 font-semibold border border-emerald-500/30">
+                                  Light Theme
+                                </span>
+                              )}
+                            </div>
                             <p className="text-[10px] text-slate-400 mt-0.5">{th.tagline}</p>
                           </div>
                         </div>
@@ -292,11 +336,11 @@ export const ThemeSettingsModal: React.FC<ThemeSettingsModalProps> = ({
                 </div>
               </div>
 
-              {/* Time, Currency & Animation */}
-              <div className="grid grid-cols-3 gap-2 pt-2 border-t border-white/10">
+              {/* Time & Motion (BDT Currency Removed) */}
+              <div className="grid grid-cols-2 gap-2 pt-2 border-t border-white/10">
                 <div className="p-2.5 rounded-xl bg-black/30 border border-white/10 flex items-center justify-between">
                   <div>
-                    <div className="text-xs font-bold text-white">Clock</div>
+                    <div className="text-xs font-bold text-white">Clock Display</div>
                     <div className="text-[10px] text-slate-400">12h / 24h</div>
                   </div>
                   <button
@@ -305,7 +349,7 @@ export const ThemeSettingsModal: React.FC<ThemeSettingsModalProps> = ({
                         timeFormat: preferences.timeFormat === '12h' ? '24h' : '12h',
                       })
                     }
-                    className="px-2 py-1 rounded-lg text-xs font-bold bg-white/10 text-white transition cursor-pointer"
+                    className="px-2.5 py-1 rounded-lg text-xs font-bold bg-white/10 hover:bg-white/15 text-white transition cursor-pointer"
                   >
                     {preferences.timeFormat.toUpperCase()}
                   </button>
@@ -313,25 +357,8 @@ export const ThemeSettingsModal: React.FC<ThemeSettingsModalProps> = ({
 
                 <div className="p-2.5 rounded-xl bg-black/30 border border-white/10 flex items-center justify-between">
                   <div>
-                    <div className="text-xs font-bold text-white">Currency</div>
-                    <div className="text-[10px] text-slate-400">bKash ৳ / $</div>
-                  </div>
-                  <button
-                    onClick={() =>
-                      onUpdatePreferences({
-                        currencySymbol: preferences.currencySymbol === '৳' ? '$' : '৳',
-                      })
-                    }
-                    className="w-7 h-7 rounded-lg text-xs font-bold bg-[#E2136E]/20 text-[#E2136E] border border-[#E2136E]/40 transition cursor-pointer flex items-center justify-center font-serif"
-                  >
-                    {preferences.currencySymbol || '৳'}
-                  </button>
-                </div>
-
-                <div className="p-2.5 rounded-xl bg-black/30 border border-white/10 flex items-center justify-between">
-                  <div>
-                    <div className="text-xs font-bold text-white">Motion</div>
-                    <div className="text-[10px] text-slate-400">Effects</div>
+                    <div className="text-xs font-bold text-white">Scenery Motion</div>
+                    <div className="text-[10px] text-slate-400">Birds &amp; Sun Glow</div>
                   </div>
                   <button
                     onClick={() =>
@@ -339,7 +366,7 @@ export const ThemeSettingsModal: React.FC<ThemeSettingsModalProps> = ({
                         showSceneryAnimation: !preferences.showSceneryAnimation,
                       })
                     }
-                    className={`px-2 py-1 rounded-lg text-xs font-bold transition cursor-pointer ${
+                    className={`px-2.5 py-1 rounded-lg text-xs font-bold transition cursor-pointer ${
                       preferences.showSceneryAnimation
                         ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
                         : 'bg-white/10 text-slate-400'
@@ -356,7 +383,7 @@ export const ThemeSettingsModal: React.FC<ThemeSettingsModalProps> = ({
         {/* Footer */}
         <div className="px-6 py-3.5 border-t border-white/10 bg-black/30 flex items-center justify-between">
           <div className="text-[11px] text-slate-400">
-            Changes auto-saved to secure local state
+            Preferences auto-saved locally
           </div>
           <button
             onClick={onClose}

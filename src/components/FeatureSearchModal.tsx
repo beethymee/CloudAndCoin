@@ -182,7 +182,7 @@ export const FeatureSearchModal: React.FC<FeatureSearchModalProps> = ({
       {
         id: 'settings_theme',
         title: 'Atmospheric Themes & Appearance',
-        description: 'bKash Ruby, Serene Forest, Obsidian Vault, Nordic Glacier, Sunset & Amber',
+        description: 'Ivory Daylight, Serene Forest, Obsidian Vault, Nordic Glacier, Sunset & Amber',
         category: 'Preferences',
         icon: Palette,
         action: () => {

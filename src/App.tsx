@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
+import { Camera, Sparkles } from 'lucide-react';
 import { Navbar } from './components/Navbar';
 import { DashboardOverview } from './components/DashboardOverview';
 import { ChatAssistant } from './components/ChatAssistant';
@@ -528,6 +529,39 @@ Try asking:
           )}
         </main>
       </MobileDeviceFrame>
+
+      {/* Floating Center Scan Receipt Camera Icon (Only on Inner Workspace Pages) */}
+      {activeTab !== 'welcome' && (
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40">
+          <button
+            onClick={() => setIsGlobalReceiptScanOpen(true)}
+            className="flex items-center gap-2 px-5 py-3 rounded-full bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-bold text-xs uppercase tracking-wider shadow-2xl shadow-emerald-500/40 border-2 border-white/20 active:scale-95 transition-all cursor-pointer group"
+            title="Scan Receipt & Auto-extract Expense"
+          >
+            <Camera className="w-4 h-4 text-slate-950 group-hover:rotate-12 transition-transform" />
+            <span>Scan Receipt</span>
+          </button>
+        </div>
+      )}
+
+      {/* Floating AI Copilot Chatbot Button (Only on Inner Workspace Pages) */}
+      {activeTab !== 'welcome' && activeTab !== 'copilot' && (
+        <div className="fixed bottom-6 right-6 z-40">
+          <button
+            onClick={() => handleSafeNavigate('copilot')}
+            className="relative w-14 h-14 rounded-full bg-gradient-to-tr from-emerald-500 via-teal-400 to-cyan-400 text-slate-950 flex items-center justify-center shadow-2xl shadow-emerald-500/50 border-2 border-white/30 hover:scale-105 active:scale-95 transition-all cursor-pointer group"
+            title="Ask FinTrack AI Copilot"
+          >
+            <Sparkles className="w-6 h-6 text-slate-950 group-hover:rotate-45 transition-transform duration-300" />
+            {pendingProposalsCount > 0 && (
+              <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-amber-400 text-slate-950 font-extrabold text-[10px] flex items-center justify-center border-2 border-[#07090E] animate-bounce">
+                {pendingProposalsCount}
+              </span>
+            )}
+            <span className="sr-only">Open Copilot</span>
+          </button>
+        </div>
+      )}
 
       {/* Feature Quick Search Modal (Search Beside Settings) */}
       <FeatureSearchModal
