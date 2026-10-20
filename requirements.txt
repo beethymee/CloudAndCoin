@@ -1,0 +1,3 @@
+# Python dependencies for FinTrack AI on Vercel
+google-genai>=0.1.1
+requests>=2.31.0
