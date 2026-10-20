@@ -30,7 +30,7 @@ Current User Financial Context:
 - Monthly Income: ${monthly_income:,.2f}
 - Monthly Expenses: ${monthly_expenses:,.2f}
 - Health Score: {health_score}/100
-- Overdue Bills: {overdue_count} (Municipal Water: $45.20)
+- Overdue Bills: {overdueCount if 'overdueCount' in locals() else overdue_count} (Municipal Water: $45.20)
 - Dining Spent this month: ${dining_spent:,.2f} / Allocated ${dining_allocated:,.2f}
 - Key Accounts: Primary Checking ($4,328.45), High-Yield Emergency Fund ($14,650.00), Sapphire Credit Card (-$842.15)
 - Active Bills: Apartment Rent ($1,650, paid), City Electric ($124.60, due Oct 22), Municipal Water ($45.20, overdue Oct 18), Fiber Internet ($79.99, due Oct 25), Netflix ($22.99, paid), Spotify ($16.99, due Oct 28)
@@ -51,7 +51,7 @@ def generate_local_finance_response(message: str, context: Optional[Dict[str, An
 
 Under **Tier 2 Security Compliance**, autonomous execution is prohibited. I have prepared a formal payment proposal for your authorization:""",
             "proposal": {
-                "id": f"prop_{int(os.times()[4] * 1000) if hasattr(os, 'times') else 179241}",
+                "id": f"prop_py_{int(os.times()[4] * 1000) if hasattr(os, 'times') else 179241}",
                 "type": "PAY_BILL",
                 "title": "Authorize Municipal Water Bill Payment",
                 "description": "Pay overdue water & waste invoice of $45.20 via Primary Checking account.",
@@ -84,7 +84,7 @@ To prevent an overrun at month-end, we can either reallocate **$60.00** from you
 
 Would you like me to prepare a Tier-2 budget adjustment proposal to reallocate $60 from Transport to Dining?""",
             "proposal": {
-                "id": f"prop_{int(os.times()[4] * 1000) if hasattr(os, 'times') else 179242}",
+                "id": f"prop_py_{int(os.times()[4] * 1000) if hasattr(os, 'times') else 179242}",
                 "type": "UPDATE_BUDGET",
                 "title": "Reallocate $60 Surplus to Dining & Food",
                 "description": "Shift $60.00 unused allowance from Transportation to Dining & Food to prevent month-end breach.",
@@ -134,7 +134,7 @@ Moving **$1,000.00** to your High-Yield Emergency Fund will:
 2. Elevate your emergency reserves to **5.5 months of living expenses**.
 3. Keep $3,328.45 in checking for all pending bills and everyday expenses.""",
             "proposal": {
-                "id": f"prop_{int(os.times()[4] * 1000) if hasattr(os, 'times') else 179243}",
+                "id": f"prop_py_{int(os.times()[4] * 1000) if hasattr(os, 'times') else 179243}",
                 "type": "TRANSFER_FUNDS",
                 "title": "Transfer $1,000 Float to High-Yield Savings",
                 "description": "Optimize idle liquidity by moving $1,000 from Primary Checking to 4.85% APY Emergency Fund.",
@@ -170,7 +170,7 @@ Ask me to *"Pay the water bill"*, *"Analyze my dining expenses"*, or *"How can I
     }
 
 def process_chat_request(body: Dict[str, Any]) -> Dict[str, Any]:
-    api_key = os.environ.get("GEMINI_API_KEY", "").strip()
+    api_key = os.environ.get("GEMINI_API_KEY", "").strip() or os.environ.get("API_KEY", "").strip()
     message = body.get("message", "")
     history = body.get("history", [])
     context = body.get("context")
@@ -230,7 +230,7 @@ Keep responses concise, scannable with bullet points, and directly actionable.
                 }
             }
 
-            url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={api_key}"
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key={api_key}"
             req = urllib.request.Request(
                 url,
                 data=json.dumps(payload).encode("utf-8"),
@@ -258,7 +258,7 @@ Keep responses concise, scannable with bullet points, and directly actionable.
                 if proposal_match:
                     try:
                         proposal = json.loads(proposal_match.group(1))
-                        proposal["id"] = f"prop_{int(os.times()[4] * 1000) if hasattr(os, 'times') else 179244}"
+                        proposal["id"] = f"prop_py_{int(os.times()[4] * 1000) if hasattr(os, 'times') else 179244}"
                         proposal["status"] = "PENDING"
                         proposal["createdAt"] = "2026-10-19T17:00:00.000Z"
                     except Exception:
@@ -357,7 +357,7 @@ def app(environ, start_response):
     start_response("200 OK", headers)
     return [json.dumps({"status": "ok", "service": "FinTrack AI Python Backend"}).encode("utf-8")]
 
-# CLI execution mode (for stdin/stdout invocation by local Node dev server or child process)
+# CLI execution mode (for stdin/stdout invocation by local server or child process)
 if __name__ == "__main__":
     try:
         raw_input = sys.stdin.read()

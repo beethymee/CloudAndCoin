@@ -24,3 +24,6 @@ def app(environ, start_response):
     headers = [("Content-Type", "application/json"), ("Access-Control-Allow-Origin", "*")]
     start_response(status, headers)
     return [json.dumps({"status": "online", "runtime": "Python 3.10"}).encode("utf-8")]
+
+if __name__ == "__main__":
+    print(json.dumps({"status": "online", "runtime": "Python 3.10"}))
