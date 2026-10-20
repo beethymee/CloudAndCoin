@@ -14,7 +14,7 @@ class handler(BaseHTTPRequestHandler):
         response = {
             "status": "online",
             "runtime": "Python 3.10",
-            "app": "FinTrack AI",
+            "app": "FIN: A Personal Finance Assistant",
             "endpoints": ["/api/chat", "/api"]
         }
         self.wfile.write(json.dumps(response).encode("utf-8"))

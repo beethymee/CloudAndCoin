@@ -14,8 +14,8 @@ export default defineConfig(() => {
         includeAssets: ['icon.svg', 'apple-touch-icon.png', 'pwa-192x192.png', 'pwa-512x512.png'],
         manifest: {
           id: '/',
-          name: 'FinTrack AI - Intelligent Personal Finance Assistant',
-          short_name: 'FinTrack',
+          name: 'FIN:A Personal Finance Assistant ',
+          short_name: 'FIN',
           description: 'FinTechathon 2026 Topic A AI Financial Participant: smart budgeting, bill analysis, spending insights, and multi-tier security approvals.',
           theme_color: '#022c22',
           background_color: '#022c22',

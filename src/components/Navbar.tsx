@@ -55,10 +55,10 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
           <div className="flex flex-col">
             <span className="text-base font-bold tracking-tight text-white font-serif">
-              FinTrack <span className="text-emerald-400 font-sans text-xs font-semibold">AI</span>
+              FIN: <span className="text-emerald-400 font-sans text-xs font-semibold">A Personal Finance Assistant</span>
             </span>
             <span className="text-[10px] text-slate-400 -mt-0.5 hidden sm:inline">
-              Personal Finance Assistant
+              Smart Budgeting & Financial Protection
             </span>
           </div>
         </div>

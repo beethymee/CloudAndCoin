@@ -155,7 +155,7 @@ export default function App() {
     {
       id: 'msg_welcome',
       role: 'assistant',
-      content: `👋 **Hello! I am FinTrack AI**, your intelligent Financial Participant built for **FinTechathon 2026 (Topic A: Personal Finance Assistant)**.
+      content: `👋 **Hello! I am FIN: A Personal Finance Assistant**, your intelligent Financial Participant built for **FinTechathon 2026 (Topic A: Personal Finance Assistant)**.
 
 I monitor your cash flow, optimize envelope budgets, track upcoming bills, and provide actionable financial recommendations.
 

@@ -20,7 +20,7 @@ async function startServer() {
     res.json({
       status: 'online',
       runtime: 'Node.js 22',
-      app: 'FinTrack AI',
+      app: 'FIN: A Personal Finance Assistant',
       endpoints: ['/api/chat', '/api'],
     });
   });

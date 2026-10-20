@@ -43,7 +43,7 @@ class FinTrackPythonHandler(SimpleHTTPRequestHandler):
             data = {
                 "status": "online",
                 "runtime": "Python 3.10",
-                "app": "FinTrack AI",
+                "app": "FIN: A Personal Finance Assistant",
                 "server": "server.py",
                 "endpoints": ["/api/chat", "/api"]
             }
